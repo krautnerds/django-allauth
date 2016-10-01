@@ -199,6 +199,11 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
         except ImmediateHttpResponse as e:
             return e.response
 
+    def get_form_kwargs(self):
+        kwargs = super(SignupView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+    
     def get_context_data(self, **kwargs):
         ret = super(SignupView, self).get_context_data(**kwargs)
         form = ret['form']
